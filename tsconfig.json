@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "target": "es2024",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "outDir": "dist",
+        "rootDir": ".",
+        "paths": {
+            "@/*": ["./src/*"],
+            "@config/*": ["./src/config/*"],
+            "@core/*": ["./src/core/*"],
+            "@infra/*": ["./src/infrastructure/*"],
+            "@shared/*": ["./src/shared/*"],
+            "@modules/*": ["./src/modules/*"],
+            "@jobs/*": ["./src/jobs/*"],
+            "@tests/*": ["./tests/*"]
+        },
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": false,
+        "skipLibCheck": true,
+        "isolatedModules": true,
+        "types": [
+            "jest",
+            "node"
+        ],
+    },
+    "ts-node": {
+        "files": true
+    },
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "tests/**/*.ts", "tests/**/*.d.ts"],
+    "exclude": ["node_modules", "dist"]
+}

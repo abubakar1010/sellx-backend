@@ -1,0 +1,1 @@
+0 3 * * * root /usr/local/bin/db-backup.sh >> /var/log/db-backup.log 2>&1

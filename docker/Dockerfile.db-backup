@@ -1,0 +1,15 @@
+FROM mongo:7
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    cron \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY scripts/db-backup.sh /usr/local/bin/db-backup.sh
+RUN chmod +x /usr/local/bin/db-backup.sh
+
+RUN mkdir -p /backups
+
+COPY docker/cron/db-backup /etc/cron.d/db-backup
+RUN chmod 0644 /etc/cron.d/db-backup
+
+CMD ["cron", "-f"]

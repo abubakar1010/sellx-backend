@@ -1,0 +1,16 @@
+node_modules
+dist
+coverage
+.env
+.env.*
+
+.git
+.github
+.vscode
+docs
+tests
+*.md
+docker/nginx/certs
+
+.DS_Store
+npm-debug.log*

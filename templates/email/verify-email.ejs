@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <meta name="color-scheme" content="light" />
+  <title>Verify Your Email</title>
+
+  <!--[if mso]>
+  <noscript><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+  <style>table { border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; } td { font-family: Arial, sans-serif; }</style>
+  <![endif]-->
+
+  <style>
+    body, table, td, a { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+    body { margin:0 !important; padding:0 !important; width:100% !important; background-color:#f0f2f5; }
+    a[x-apple-data-detectors] { color:inherit !important; text-decoration:none !important; }
+
+    /* Mobile-first */
+    .email-container { width:100% !important; }
+    .content-padding { padding:24px 18px !important; }
+    .header-cell { padding:28px 18px !important; }
+    .footer-cell { padding:18px 18px 22px !important; }
+    .header-title { font-size:20px !important; }
+    .header-subtitle { font-size:13px !important; }
+    .divider-pad { padding:0 18px !important; }
+    .sub-footer { padding:20px 18px 0 !important; }
+    .cta-btn { display:block !important; width:100% !important; text-align:center !important; padding:15px 20px !important; box-sizing:border-box !important; }
+    .features-box { padding:16px 18px !important; }
+    .feature-item { font-size:13px !important; }
+    .fallback-url { font-size:11px !important; }
+
+    @media only screen and (min-width: 620px) {
+      .email-container { width:600px !important; max-width:600px !important; }
+      .content-padding { padding:36px 40px !important; }
+      .header-cell { padding:36px 40px !important; }
+      .footer-cell { padding:24px 40px 28px !important; }
+      .header-title { font-size:24px !important; }
+      .header-subtitle { font-size:14px !important; }
+      .divider-pad { padding:0 40px !important; }
+      .sub-footer { padding:24px 16px 0 !important; }
+      .cta-btn { display:inline-block !important; width:auto !important; padding:14px 44px !important; }
+      .features-box { padding:20px 24px !important; }
+      .feature-item { font-size:14px !important; }
+      .fallback-url { font-size:12px !important; }
+    }
+  </style>
+</head>
+<body style="margin:0; padding:0; background-color:#f0f2f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;">
+
+  <!-- Preheader -->
+  <div style="display:none; max-height:0; overflow:hidden; font-size:1px; color:#f0f2f5;">
+    Please verify your email address to activate your account.
+    &#847; &#847; &#847; &#847; &#847; &#847;
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f0f2f5;">
+    <tr>
+      <td align="center" style="padding:24px 12px;">
+
+        <!-- Brand -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+          <tr>
+            <td align="center" style="font-size:18px; font-weight:700; color:#1a1a2e; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;">
+              &#9679;&nbsp; <%= appName %>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Card -->
+        <table role="presentation" class="email-container" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px; margin:0 auto; background:#ffffff; border-radius:16px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);">
+
+          <!-- Header -->
+          <tr>
+            <td>
+              <%- include("partials/header", { title: "Verify Your Email", subtitle: "One quick step to activate your account" }) %>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td class="content-padding" style="padding:24px 18px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; font-size:14px; line-height:1.65; color:#3d3d4e;">
+
+              <p style="margin:0 0 14px;">
+                Hello <strong style="color:#1a1a2e;"><%= fullName ?? "there" %></strong>,
+              </p>
+
+              <p style="margin:0 0 6px; color:#6b7280;">
+                Thanks for signing up! To get started, please confirm your email address by clicking the button below:
+              </p>
+
+              <!-- CTA -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="padding:24px 0;">
+                    <!--[if mso]>
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="<%= verificationUrl %>" style="height:48px;v-text-anchor:middle;width:260px;" arcsize="12%" fillcolor="#4f6ef7" stroke="f">
+                      <center style="color:#ffffff;font-family:Arial,sans-serif;font-size:15px;font-weight:bold;">Verify Email Address &rarr;</center>
+                    </v:roundrect>
+                    <![endif]-->
+                    <!--[if !mso]><!-->
+                    <a href="<%= verificationUrl %>" class="cta-btn" style="display:block; padding:15px 20px; background:linear-gradient(135deg,#4f6ef7 0%,#3b5de7 100%); color:#ffffff; text-decoration:none; border-radius:10px; font-weight:700; font-size:15px; text-align:center; box-shadow:0 4px 12px rgba(79,110,247,0.35);">
+                      Verify Email Address &rarr;
+                    </a>
+                    <!--<![endif]-->
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Features Box -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+                <tr>
+                  <td class="features-box" style="background:#f8f9ff; border-radius:12px; padding:16px 18px;">
+                    <p style="margin:0 0 10px; font-size:13px; font-weight:700; color:#1a1a2e; text-transform:uppercase; letter-spacing:0.8px;">
+                      Once verified, you can:
+                    </p>
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                      <tr>
+                        <td class="feature-item" style="padding:5px 0; font-size:13px; color:#4b5563; line-height:1.5;">
+                          <span style="color:#10b981; font-weight:700;">&#10003;</span>&nbsp;&nbsp; Access all platform features
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="feature-item" style="padding:5px 0; font-size:13px; color:#4b5563; line-height:1.5;">
+                          <span style="color:#10b981; font-weight:700;">&#10003;</span>&nbsp;&nbsp; Receive important notifications
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="feature-item" style="padding:5px 0; font-size:13px; color:#4b5563; line-height:1.5;">
+                          <span style="color:#10b981; font-weight:700;">&#10003;</span>&nbsp;&nbsp; Secure your account with recovery options
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Fallback -->
+              <p style="margin:0 0 4px; font-size:12px; color:#9ca3af; line-height:1.6;">
+                Button not working? Copy and paste this URL:
+              </p>
+              <p class="fallback-url" style="margin:0; font-size:11px; word-break:break-all; line-height:1.6;">
+                <a href="<%= verificationUrl %>" style="color:#4f6ef7; text-decoration:underline;"><%= verificationUrl %></a>
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td class="divider-pad" style="padding:0 18px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr><td style="border-top:1px solid #eef0f3; font-size:0; line-height:0;">&nbsp;</td></tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td><%- include("partials/footer") %></td>
+          </tr>
+
+        </table>
+
+        <!-- Sub-footer -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="max-width:600px; width:100%; margin:0 auto;">
+          <tr>
+            <td class="sub-footer" align="center" style="padding:20px 18px 0; font-size:11px; color:#9ca3af; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;">
+               <p style="margin:0;">&copy; <%= new Date().getFullYear() %> <%= appName %>. All rights reserved.</p>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

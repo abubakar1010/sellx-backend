@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <meta name="color-scheme" content="light" />
+  <meta name="supported-color-schemes" content="light" />
+  <title><%= subject ?? "Notification" %></title>
+
+  <!--[if mso]>
+  <noscript><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+  <style>table { border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; } td { font-family: Arial, sans-serif; }</style>
+  <![endif]-->
+
+  <style>
+    /* ===== MOBILE-FIRST BASE ===== */
+    body, table, td, a { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+    img { -ms-interpolation-mode:bicubic; border:0; height:auto; line-height:100%; outline:none; text-decoration:none; display:block; }
+    body { margin:0 !important; padding:0 !important; width:100% !important; height:100% !important; background-color:#f0f2f5; }
+    a[x-apple-data-detectors] { color:inherit !important; text-decoration:none !important; font-size:inherit !important; font-family:inherit !important; font-weight:inherit !important; line-height:inherit !important; }
+
+    /* Mobile defaults */
+    .email-container { width:100% !important; max-width:100% !important; }
+    .content-padding { padding:24px 18px !important; }
+    .header-cell { padding:28px 18px !important; }
+    .footer-cell { padding:18px 18px 22px !important; }
+    .header-title { font-size:20px !important; }
+    .header-subtitle { font-size:13px !important; }
+    .body-text { font-size:14px !important; line-height:1.65 !important; }
+    .cta-btn { display:block !important; width:100% !important; text-align:center !important; padding:14px 20px !important; font-size:15px !important; box-sizing:border-box !important; }
+    .otp-code { font-size:28px !important; letter-spacing:8px !important; }
+    .info-box { padding:16px !important; }
+    .divider-pad { padding:0 18px !important; }
+    .sub-footer { padding:20px 18px 0 !important; }
+    .steps-num { width:32px !important; height:32px !important; font-size:13px !important; line-height:32px !important; }
+    .account-table td { display:block !important; width:100% !important; padding:2px 0 !important; }
+    .otp-box { padding:16px 24px !important; }
+
+    /* ===== TABLET / DESKTOP ENHANCEMENT ===== */
+    @media only screen and (min-width: 620px) {
+      .email-container { width:600px !important; max-width:600px !important; }
+      .content-padding { padding:36px 40px !important; }
+      .header-cell { padding:36px 40px !important; }
+      .footer-cell { padding:24px 40px 28px !important; }
+      .header-title { font-size:24px !important; }
+      .header-subtitle { font-size:14px !important; }
+      .body-text { font-size:15px !important; line-height:1.7 !important; }
+      .cta-btn { display:inline-block !important; width:auto !important; padding:14px 44px !important; font-size:15px !important; }
+      .otp-code { font-size:36px !important; letter-spacing:12px !important; }
+      .info-box { padding:20px 24px !important; }
+      .divider-pad { padding:0 40px !important; }
+      .sub-footer { padding:24px 16px 0 !important; }
+      .steps-num { width:36px !important; height:36px !important; font-size:14px !important; line-height:36px !important; }
+      .account-table td { display:table-cell !important; width:auto !important; padding:4px 0 !important; }
+      .otp-box { padding:20px 40px !important; }
+    }
+  </style>
+</head>
+<body style="margin:0; padding:0; background-color:#f0f2f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Helvetica Neue',Arial,sans-serif;">
+
+  <!-- Preheader -->
+  <div style="display:none; font-size:1px; color:#f0f2f5; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden;">
+    <%= preheader ?? "" %>
+    &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847; &#847;
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f0f2f5;">
+    <tr>
+      <td align="center" style="padding:24px 12px;">
+
+        <!-- Brand -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+          <tr>
+            <td align="center" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; font-size:18px; font-weight:700; color:#1a1a2e; letter-spacing:-0.3px;">
+              &#9679;&nbsp; Backend-Template
+            </td>
+          </tr>
+        </table>
+
+        <!-- Email Card -->
+        <table role="presentation" class="email-container" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px; margin:0 auto; background:#ffffff; border-radius:16px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);">
+
+          <!-- Header -->
+          <tr>
+            <td><%- include("../partials/header", { title: title, subtitle: typeof subtitle !== 'undefined' ? subtitle : '' }) %></td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td class="content-padding body-text" style="padding:24px 18px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; font-size:14px; line-height:1.65; color:#3d3d4e;">
+              <%- body %>
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td class="divider-pad" style="padding:0 18px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr><td style="border-top:1px solid #eef0f3; font-size:0; line-height:0;">&nbsp;</td></tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td><%- include("../partials/footer") %></td>
+          </tr>
+
+        </table>
+
+        <!-- Sub-footer -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="max-width:600px; width:100%; margin:0 auto;">
+          <tr>
+            <td class="sub-footer" align="center" style="padding:20px 18px 0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; font-size:11px; line-height:1.5; color:#9ca3af;">
+              <p style="margin:0;">&copy; <%= new Date().getFullYear() %> YourApp. All rights reserved.</p>
+              <p style="margin:4px 0 0;">
+                <a href="#" style="color:#9ca3af; text-decoration:underline;">Unsubscribe</a>
+                &nbsp;&middot;&nbsp;
+                <a href="#" style="color:#9ca3af; text-decoration:underline;">Privacy</a>
+                &nbsp;&middot;&nbsp;
+                <a href="#" style="color:#9ca3af; text-decoration:underline;">Help</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

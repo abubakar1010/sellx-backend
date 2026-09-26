@@ -1,0 +1,55 @@
+services:
+    api:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile.dev
+        container_name: backend_mongoose_api_dev
+        env_file:
+            - .env
+        environment:
+            NODE_ENV: development
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
+        command: npm run dev
+        expose:
+            - '5000'
+        ports:
+            - '5000:5000'
+        volumes:
+            - .:/app
+            - /app/node_modules
+        depends_on:
+            redis:
+                condition: service_healthy
+        healthcheck:
+            test: ['CMD-SHELL', 'wget -qO- http://localhost:5000/health >/dev/null || exit 1']
+            interval: 10s
+            timeout: 5s
+            retries: 10
+            start_period: 30s
+        restart: unless-stopped
+        networks:
+            - backend
+
+    redis:
+        image: redis:7-alpine
+        container_name: backend_mongoose_redis
+        ports:
+            - '6380:6379'
+        volumes:
+            - redis_data:/data
+        healthcheck:
+            test: ['CMD', 'redis-cli', 'ping']
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        restart: unless-stopped
+        networks:
+            - backend
+
+volumes:
+    redis_data:
+
+networks:
+    backend:
+        driver: bridge
