@@ -17,9 +17,9 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/boost-plans",
+                            "raw": "{{baseUrl}}/admin/boost-plans",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "boost-plans"]
+                            "path": ["admin", "boost-plans"]
                         },
                         "description": "Returns all boost plans sorted by price ascending. Each plan includes: id, name, price, durationHours, description, isActive, createdAt, updatedAt."
                     },
@@ -44,9 +44,9 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/boost-plans/{{boostPlanId}}",
+                            "raw": "{{baseUrl}}/admin/boost-plans/{{boostPlanId}}",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "boost-plans", "{{boostPlanId}}"]
+                            "path": ["admin", "boost-plans", "{{boostPlanId}}"]
                         },
                         "description": "Returns a single boost plan by its MongoDB ObjectId."
                     },
@@ -85,9 +85,9 @@
                             }
                         },
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/boost-plans",
+                            "raw": "{{baseUrl}}/admin/boost-plans",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "boost-plans"]
+                            "path": ["admin", "boost-plans"]
                         },
                         "description": "Create a new boost plan.\n\nRequired fields:\n- name: string (1-100 chars)\n- price: number (min 0)\n- durationHours: integer (min 1)\n\nOptional:\n- description: string (max 500 chars)"
                     },
@@ -126,9 +126,9 @@
                             }
                         },
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/boost-plans/{{boostPlanId}}",
+                            "raw": "{{baseUrl}}/admin/boost-plans/{{boostPlanId}}",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "boost-plans", "{{boostPlanId}}"]
+                            "path": ["admin", "boost-plans", "{{boostPlanId}}"]
                         },
                         "description": "Update an existing boost plan. All fields are optional — only provided fields will be updated.\n\nAlso supports: isActive (boolean) to directly set active/inactive."
                     },
@@ -153,9 +153,9 @@
                         "method": "DELETE",
                         "header": [],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/boost-plans/{{boostPlanId}}",
+                            "raw": "{{baseUrl}}/admin/boost-plans/{{boostPlanId}}",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "boost-plans", "{{boostPlanId}}"]
+                            "path": ["admin", "boost-plans", "{{boostPlanId}}"]
                         },
                         "description": "Permanently delete a boost plan by its MongoDB ObjectId."
                     },
@@ -180,16 +180,9 @@
                         "method": "PATCH",
                         "header": [],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/boost-plans/{{boostPlanId}}/toggle-status",
+                            "raw": "{{baseUrl}}/admin/boost-plans/{{boostPlanId}}/toggle-status",
                             "host": ["{{baseUrl}}"],
-                            "path": [
-                                "api",
-                                "v1",
-                                "admin",
-                                "boost-plans",
-                                "{{boostPlanId}}",
-                                "toggle-status"
-                            ]
+                            "path": ["admin", "boost-plans", "{{boostPlanId}}", "toggle-status"]
                         },
                         "description": "Toggle a boost plan between active and inactive. If currently active it will be deactivated, and vice versa. No request body needed."
                     },
@@ -232,9 +225,9 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/ads-packages",
+                            "raw": "{{baseUrl}}/admin/ads-packages",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "ads-packages"]
+                            "path": ["admin", "ads-packages"]
                         },
                         "description": "Returns all ad packages sorted by price ascending. Each package includes: id, name, durationDays, price, adType, isActive, createdAt, updatedAt."
                     },
@@ -259,9 +252,9 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/ads-packages/{{adPackageId}}",
+                            "raw": "{{baseUrl}}/admin/ads-packages/{{adPackageId}}",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "ads-packages", "{{adPackageId}}"]
+                            "path": ["admin", "ads-packages", "{{adPackageId}}"]
                         },
                         "description": "Returns a single ad package by its MongoDB ObjectId."
                     },
@@ -300,9 +293,9 @@
                             }
                         },
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/ads-packages",
+                            "raw": "{{baseUrl}}/admin/ads-packages",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "ads-packages"]
+                            "path": ["admin", "ads-packages"]
                         },
                         "description": "Create a new ad package.\n\nRequired fields:\n- name: string (1-100 chars)\n- durationDays: integer (min 1, unique - no two packages with same duration)\n- price: number (min 0)\n- adType: string (e.g. \"standard\", \"popular\", \"premium\", \"ultimate\")"
                     },
@@ -341,9 +334,9 @@
                             }
                         },
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/ads-packages/{{adPackageId}}",
+                            "raw": "{{baseUrl}}/admin/ads-packages/{{adPackageId}}",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "ads-packages", "{{adPackageId}}"]
+                            "path": ["admin", "ads-packages", "{{adPackageId}}"]
                         },
                         "description": "Update an existing ad package. All fields are optional — only provided fields will be updated.\n\nAlso supports: isActive (boolean) to directly set active/inactive."
                     },
@@ -368,9 +361,9 @@
                         "method": "DELETE",
                         "header": [],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/ads-packages/{{adPackageId}}",
+                            "raw": "{{baseUrl}}/admin/ads-packages/{{adPackageId}}",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "ads-packages", "{{adPackageId}}"]
+                            "path": ["admin", "ads-packages", "{{adPackageId}}"]
                         },
                         "description": "Permanently delete an ad package by its MongoDB ObjectId."
                     },
@@ -395,16 +388,9 @@
                         "method": "PATCH",
                         "header": [],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/ads-packages/{{adPackageId}}/toggle-status",
+                            "raw": "{{baseUrl}}/admin/ads-packages/{{adPackageId}}/toggle-status",
                             "host": ["{{baseUrl}}"],
-                            "path": [
-                                "api",
-                                "v1",
-                                "admin",
-                                "ads-packages",
-                                "{{adPackageId}}",
-                                "toggle-status"
-                            ]
+                            "path": ["admin", "ads-packages", "{{adPackageId}}", "toggle-status"]
                         },
                         "description": "Toggle an ad package between active and inactive. If currently active it will be deactivated, and vice versa. No request body needed."
                     },
@@ -451,7 +437,7 @@
     "variable": [
         {
             "key": "baseUrl",
-            "value": "http://localhost:3000/api/v1"
+            "value": "http://localhost:5000/api/v1"
         },
         {
             "key": "adminToken",

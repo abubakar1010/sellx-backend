@@ -16,9 +16,9 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/coupons/validate?code=SUMMER20&categoryId=",
+                            "raw": "{{baseUrl}}/coupons/validate?code=SUMMER20&categoryId=",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "coupons", "validate"],
+                            "path": ["coupons", "validate"],
                             "query": [
                                 {
                                     "key": "code",
@@ -73,9 +73,9 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/coupons",
+                            "raw": "{{baseUrl}}/admin/coupons",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "coupons"]
+                            "path": ["admin", "coupons"]
                         },
                         "description": "Returns all coupons sorted by createdAt descending. Each coupon includes:\n- id, code, type (percentage/flat), value\n- categories (array of Category ObjectIds)\n- expiryDate, usageLimit, usage, isActive\n- createdAt, updatedAt"
                     },
@@ -100,9 +100,9 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/coupons/{{couponId}}",
+                            "raw": "{{baseUrl}}/admin/coupons/{{couponId}}",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "coupons", "{{couponId}}"]
+                            "path": ["admin", "coupons", "{{couponId}}"]
                         },
                         "description": "Returns a single coupon by its MongoDB ObjectId."
                     },
@@ -141,9 +141,9 @@
                             }
                         },
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/coupons",
+                            "raw": "{{baseUrl}}/admin/coupons",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "coupons"]
+                            "path": ["admin", "coupons"]
                         },
                         "description": "Create a new coupon.\n\nRequired fields:\n- code: string (unique, case-insensitive, will be uppercased)\n- type: \"percentage\" | \"flat\"\n- value: number (positive)\n- expiryDate: ISO8601 datetime with offset (e.g. \"2026-12-31T23:59:59Z\")\n- usageLimit: integer (positive)\n\nOptional:\n- categories: array of Category ObjectIds (empty array = applicable to all)"
                     },
@@ -182,9 +182,9 @@
                             }
                         },
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/coupons/{{couponId}}",
+                            "raw": "{{baseUrl}}/admin/coupons/{{couponId}}",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "coupons", "{{couponId}}"]
+                            "path": ["admin", "coupons", "{{couponId}}"]
                         },
                         "description": "Update an existing coupon. All fields are optional — only provided fields will be updated.\n\n\nexpiryDate should be ISO8601 datetime with offset."
                     },
@@ -209,9 +209,9 @@
                         "method": "DELETE",
                         "header": [],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/coupons/{{couponId}}",
+                            "raw": "{{baseUrl}}/admin/coupons/{{couponId}}",
                             "host": ["{{baseUrl}}"],
-                            "path": ["api", "v1", "admin", "coupons", "{{couponId}}"]
+                            "path": ["admin", "coupons", "{{couponId}}"]
                         },
                         "description": "Permanently delete a coupon by its MongoDB ObjectId."
                     },
@@ -236,16 +236,9 @@
                         "method": "PATCH",
                         "header": [],
                         "url": {
-                            "raw": "{{baseUrl}}/api/v1/admin/coupons/{{couponId}}/toggle-status",
+                            "raw": "{{baseUrl}}/admin/coupons/{{couponId}}/toggle-status",
                             "host": ["{{baseUrl}}"],
-                            "path": [
-                                "api",
-                                "v1",
-                                "admin",
-                                "coupons",
-                                "{{couponId}}",
-                                "toggle-status"
-                            ]
+                            "path": ["admin", "coupons", "{{couponId}}", "toggle-status"]
                         },
                         "description": "Toggle a coupon between active and inactive. If currently active it will be deactivated, and vice versa. No request body needed."
                     },
@@ -292,7 +285,7 @@
     "variable": [
         {
             "key": "baseUrl",
-            "value": "http://localhost:3000/api/v1"
+            "value": "http://localhost:5000/api/v1"
         },
         {
             "key": "adminToken",
