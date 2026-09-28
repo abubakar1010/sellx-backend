@@ -1,299 +1,306 @@
 {
-  "info": {
-    "_postman_id": "d4f8e2b1-9c7a-4a3e-b6d2-1f8c9e0a7b3c",
-    "name": "Coupon API",
-    "description": "Dedicated collection for Coupon management. Includes public coupon validation and full admin CRUD (create, read, update, delete, activate/deactivate).\n\nBase URL: {{baseUrl}}\nAuth: Admin routes require {{adminToken}} in Authorization header",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "24481340"
-  },
-  "item": [
-    {
-      "name": "🎟️ Public - Validate Coupon",
-      "item": [
+    "info": {
+        "_postman_id": "d4f8e2b1-9c7a-4a3e-b6d2-1f8c9e0a7b3c",
+        "name": "Coupon API",
+        "description": "Dedicated collection for Coupon management. Includes public coupon validation and full admin CRUD (create, read, update, delete, activate/deactivate).\n\nBase URL: {{baseUrl}}\nAuth: Admin routes require {{adminToken}} in Authorization header",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "24481340"
+    },
+    "item": [
         {
-          "name": "Validate Coupon Code",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/coupons/validate?code=SUMMER20&categoryId=",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "coupons", "validate"],
-              "query": [
+            "name": "🎟️ Public - Validate Coupon",
+            "item": [
                 {
-                  "key": "code",
-                  "value": "SUMMER20",
-                  "description": "Coupon code to validate (case-insensitive)."
+                    "name": "Validate Coupon Code",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/coupons/validate?code=SUMMER20&categoryId=",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "coupons", "validate"],
+                            "query": [
+                                {
+                                    "key": "code",
+                                    "value": "SUMMER20",
+                                    "description": "Coupon code to validate (case-insensitive)."
+                                },
+                                {
+                                    "key": "categoryId",
+                                    "value": "",
+                                    "description": "Optional. Category ObjectId to check if the coupon applies to this category."
+                                }
+                            ]
+                        },
+                        "description": "Validate a coupon code. Checks:\n- Coupon exists\n- Is active\n- Not expired\n- Usage limit not reached\n- Category match (if categoryId provided and coupon has categories)\n\nReturns 200 with coupon details on success. Returns appropriate error codes (INVALID_COUPON, COUPON_INACTIVE, COUPON_EXPIRED, COUPON_LIMIT_REACHED, COUPON_CATEGORY_MISMATCH) on failure."
+                    },
+                    "response": [
+                        {
+                            "name": "Valid Coupon Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupon is valid.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"code\": \"SUMMER20\",\n        \"type\": \"percentage\",\n        \"value\": 20,\n        \"categories\": [],\n        \"expiryDate\": \"2026-12-31T23:59:59.000Z\",\n        \"usageLimit\": 100,\n        \"usage\": 5,\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n    }\n}"
+                        },
+                        {
+                            "name": "Invalid Coupon Response",
+                            "status": "Not Found",
+                            "code": 404,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": false,\n    \"statusCode\": 404,\n    \"message\": \"Invalid coupon code\",\n    \"errorCode\": \"INVALID_COUPON\",\n    \"requestId\": \"req-abc-123\"\n}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "🔐 Admin - Coupon Management",
+            "description": "Admin endpoints for managing coupons. All routes require superAdmin role.\n\nBase URL: {{baseUrl}}/admin\n\nAuthentication: Bearer {{adminToken}} in Authorization header",
+            "item": [
+                {
+                    "name": "List All Coupons",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/coupons",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "coupons"]
+                        },
+                        "description": "Returns all coupons sorted by createdAt descending. Each coupon includes:\n- id, code, type (percentage/flat), value\n- categories (array of Category ObjectIds)\n- expiryDate, usageLimit, usage, isActive\n- createdAt, updatedAt"
+                    },
+                    "response": [
+                        {
+                            "name": "Coupons List Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupons fetched successfully.\",\n    \"data\": [\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n            \"code\": \"SUMMER20\",\n            \"type\": \"percentage\",\n            \"value\": 20,\n            \"categories\": [],\n            \"expiryDate\": \"2026-12-31T23:59:59.000Z\",\n            \"usageLimit\": 100,\n            \"usage\": 5,\n            \"isActive\": true,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n        }\n    ]\n}"
+                        }
+                    ]
                 },
                 {
-                  "key": "categoryId",
-                  "value": "",
-                  "description": "Optional. Category ObjectId to check if the coupon applies to this category."
-                }
-              ]
-            },
-            "description": "Validate a coupon code. Checks:\n- Coupon exists\n- Is active\n- Not expired\n- Usage limit not reached\n- Category match (if categoryId provided and coupon has categories)\n\nReturns 200 with coupon details on success. Returns appropriate error codes (INVALID_COUPON, COUPON_INACTIVE, COUPON_EXPIRED, COUPON_LIMIT_REACHED, COUPON_CATEGORY_MISMATCH) on failure."
-          },
-          "response": [
-            {
-              "name": "Valid Coupon Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
+                    "name": "Get Coupon By ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/coupons/{{couponId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "coupons", "{{couponId}}"]
+                        },
+                        "description": "Returns a single coupon by its MongoDB ObjectId."
+                    },
+                    "response": [
+                        {
+                            "name": "Coupon Detail Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupon fetched successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"code\": \"SUMMER20\",\n        \"type\": \"percentage\",\n        \"value\": 20,\n        \"categories\": [],\n        \"expiryDate\": \"2026-12-31T23:59:59.000Z\",\n        \"usageLimit\": 100,\n        \"usage\": 5,\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n    }\n}"
+                        }
+                    ]
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupon is valid.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"code\": \"SUMMER20\",\n        \"type\": \"percentage\",\n        \"value\": 20,\n        \"categories\": [],\n        \"expiryDate\": \"2026-12-31T23:59:59.000Z\",\n        \"usageLimit\": 100,\n        \"usage\": 5,\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n    }\n}"
-            },
-            {
-              "name": "Invalid Coupon Response",
-              "status": "Not Found",
-              "code": 404,
-              "header": [
+                    "name": "Create Coupon",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"code\": \"SUMMER20\",\n    \"type\": \"percentage\",\n    \"value\": 20,\n    \"categories\": [],\n    \"expiryDate\": \"2026-12-31T23:59:59Z\",\n    \"usageLimit\": 100\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/coupons",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "coupons"]
+                        },
+                        "description": "Create a new coupon.\n\nRequired fields:\n- code: string (unique, case-insensitive, will be uppercased)\n- type: \"percentage\" | \"flat\"\n- value: number (positive)\n- expiryDate: ISO8601 datetime with offset (e.g. \"2026-12-31T23:59:59Z\")\n- usageLimit: integer (positive)\n\nOptional:\n- categories: array of Category ObjectIds (empty array = applicable to all)"
+                    },
+                    "response": [
+                        {
+                            "name": "Coupon Created Response",
+                            "status": "Created",
+                            "code": 201,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 201,\n    \"message\": \"Coupon created successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"code\": \"SUMMER20\",\n        \"type\": \"percentage\",\n        \"value\": 20,\n        \"categories\": [],\n        \"expiryDate\": \"2026-12-31T23:59:59.000Z\",\n        \"usageLimit\": 100,\n        \"usage\": 0,\n        \"isActive\": true,\n        \"createdAt\": \"2025-06-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T10:30:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n    }\n}"
+                        }
+                    ]
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                    "name": "Update Coupon",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"code\": \"SUMMER25\",\n    \"type\": \"percentage\",\n    \"value\": 25,\n    \"categories\": [\"663a1b2c3d4e5f6a7b8c9d0e\"],\n    \"expiryDate\": \"2027-01-31T23:59:59Z\",\n    \"usageLimit\": 200\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/coupons/{{couponId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "coupons", "{{couponId}}"]
+                        },
+                        "description": "Update an existing coupon. All fields are optional — only provided fields will be updated.\n\n\nexpiryDate should be ISO8601 datetime with offset."
+                    },
+                    "response": [
+                        {
+                            "name": "Coupon Updated Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupon updated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"code\": \"SUMMER25\",\n        \"type\": \"percentage\",\n        \"value\": 25,\n        \"categories\": [\"663a1b2c3d4e5f6a7b8c9d0e\"],\n        \"expiryDate\": \"2027-01-31T23:59:59.000Z\",\n        \"usageLimit\": 200,\n        \"usage\": 5,\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T11:00:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Coupon",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/coupons/{{couponId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "coupons", "{{couponId}}"]
+                        },
+                        "description": "Permanently delete a coupon by its MongoDB ObjectId."
+                    },
+                    "response": [
+                        {
+                            "name": "Coupon Deleted Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupon deleted successfully.\",\n    \"data\": null\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Toggle Coupon Status",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/coupons/{{couponId}}/toggle-status",
+                            "host": ["{{baseUrl}}"],
+                            "path": [
+                                "api",
+                                "v1",
+                                "admin",
+                                "coupons",
+                                "{{couponId}}",
+                                "toggle-status"
+                            ]
+                        },
+                        "description": "Toggle a coupon between active and inactive. If currently active it will be deactivated, and vice versa. No request body needed."
+                    },
+                    "response": [
+                        {
+                            "name": "Coupon Activated Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupon activated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"code\": \"SUMMER20\",\n        \"isActive\": true,\n        ...\n    }\n}"
+                        },
+                        {
+                            "name": "Coupon Deactivated Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupon deactivated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"code\": \"SUMMER20\",\n        \"isActive\": false,\n        ...\n    }\n}"
+                        }
+                    ]
                 }
-              ],
-              "body": "{\n    \"success\": false,\n    \"statusCode\": 404,\n    \"message\": \"Invalid coupon code\",\n    \"errorCode\": \"INVALID_COUPON\",\n    \"requestId\": \"req-abc-123\"\n}"
-            }
-          ]
+            ]
         }
-      ]
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{adminToken}}",
+                "type": "string"
+            }
+        ]
     },
-    {
-      "name": "🔐 Admin - Coupon Management",
-      "description": "Admin endpoints for managing coupons. All routes require superAdmin role.\n\nBase URL: {{baseUrl}}/admin\n\nAuthentication: Bearer {{adminToken}} in Authorization header",
-      "item": [
+    "variable": [
         {
-          "name": "List All Coupons",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/coupons",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "coupons"]
-            },
-            "description": "Returns all coupons sorted by createdAt descending. Each coupon includes:\n- id, code, type (percentage/flat), value\n- categories (array of Category ObjectIds)\n- expiryDate, usageLimit, usage, isActive\n- createdAt, updatedAt"
-          },
-          "response": [
-            {
-              "name": "Coupons List Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupons fetched successfully.\",\n    \"data\": [\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n            \"code\": \"SUMMER20\",\n            \"type\": \"percentage\",\n            \"value\": 20,\n            \"categories\": [],\n            \"expiryDate\": \"2026-12-31T23:59:59.000Z\",\n            \"usageLimit\": 100,\n            \"usage\": 5,\n            \"isActive\": true,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n        }\n    ]\n}"
-            }
-          ]
+            "key": "baseUrl",
+            "value": "http://localhost:3000/api/v1"
         },
         {
-          "name": "Get Coupon By ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/coupons/{{couponId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "coupons", "{{couponId}}"]
-            },
-            "description": "Returns a single coupon by its MongoDB ObjectId."
-          },
-          "response": [
-            {
-              "name": "Coupon Detail Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupon fetched successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"code\": \"SUMMER20\",\n        \"type\": \"percentage\",\n        \"value\": 20,\n        \"categories\": [],\n        \"expiryDate\": \"2026-12-31T23:59:59.000Z\",\n        \"usageLimit\": 100,\n        \"usage\": 5,\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n    }\n}"
-            }
-          ]
+            "key": "adminToken",
+            "value": ""
         },
         {
-          "name": "Create Coupon",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"code\": \"SUMMER20\",\n    \"type\": \"percentage\",\n    \"value\": 20,\n    \"categories\": [],\n    \"expiryDate\": \"2026-12-31T23:59:59Z\",\n    \"usageLimit\": 100\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/coupons",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "coupons"]
-            },
-            "description": "Create a new coupon.\n\nRequired fields:\n- code: string (unique, case-insensitive, will be uppercased)\n- type: \"percentage\" | \"flat\"\n- value: number (positive)\n- expiryDate: ISO8601 datetime with offset (e.g. \"2026-12-31T23:59:59Z\")\n- usageLimit: integer (positive)\n\nOptional:\n- categories: array of Category ObjectIds (empty array = applicable to all)"
-          },
-          "response": [
-            {
-              "name": "Coupon Created Response",
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 201,\n    \"message\": \"Coupon created successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"code\": \"SUMMER20\",\n        \"type\": \"percentage\",\n        \"value\": 20,\n        \"categories\": [],\n        \"expiryDate\": \"2026-12-31T23:59:59.000Z\",\n        \"usageLimit\": 100,\n        \"usage\": 0,\n        \"isActive\": true,\n        \"createdAt\": \"2025-06-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T10:30:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n    }\n}"
-            }
-          ]
-        },
-        {
-          "name": "Update Coupon",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"code\": \"SUMMER25\",\n    \"type\": \"percentage\",\n    \"value\": 25,\n    \"categories\": [\"663a1b2c3d4e5f6a7b8c9d0e\"],\n    \"expiryDate\": \"2027-01-31T23:59:59Z\",\n    \"usageLimit\": 200\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/coupons/{{couponId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "coupons", "{{couponId}}"]
-            },
-            "description": "Update an existing coupon. All fields are optional — only provided fields will be updated.\n\n\nexpiryDate should be ISO8601 datetime with offset."
-          },
-          "response": [
-            {
-              "name": "Coupon Updated Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupon updated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"code\": \"SUMMER25\",\n        \"type\": \"percentage\",\n        \"value\": 25,\n        \"categories\": [\"663a1b2c3d4e5f6a7b8c9d0e\"],\n        \"expiryDate\": \"2027-01-31T23:59:59.000Z\",\n        \"usageLimit\": 200,\n        \"usage\": 5,\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T11:00:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n    }\n}"
-            }
-          ]
-        },
-        {
-          "name": "Delete Coupon",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/coupons/{{couponId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "coupons", "{{couponId}}"]
-            },
-            "description": "Permanently delete a coupon by its MongoDB ObjectId."
-          },
-          "response": [
-            {
-              "name": "Coupon Deleted Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupon deleted successfully.\",\n    \"data\": null\n}"
-            }
-          ]
-        },
-        {
-          "name": "Toggle Coupon Status",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/coupons/{{couponId}}/toggle-status",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "coupons", "{{couponId}}", "toggle-status"]
-            },
-            "description": "Toggle a coupon between active and inactive. If currently active it will be deactivated, and vice versa. No request body needed."
-          },
-          "response": [
-            {
-              "name": "Coupon Activated Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupon activated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"code\": \"SUMMER20\",\n        \"isActive\": true,\n        ...\n    }\n}"
-            },
-            {
-              "name": "Coupon Deactivated Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Coupon deactivated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"code\": \"SUMMER20\",\n        \"isActive\": false,\n        ...\n    }\n}"
-            }
-          ]
+            "key": "couponId",
+            "value": ""
         }
-      ]
-    }
-  ],
-  "auth": {
-    "type": "bearer",
-    "bearer": [
-      {
-        "key": "token",
-        "value": "{{adminToken}}",
-        "type": "string"
-      }
     ]
-  },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://localhost:3000/api/v1"
-    },
-    {
-      "key": "adminToken",
-      "value": ""
-    },
-    {
-      "key": "couponId",
-      "value": ""
-    }
-  ]
 }

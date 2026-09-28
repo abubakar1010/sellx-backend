@@ -1,455 +1,469 @@
 {
-  "info": {
-    "_postman_id": "e7b2c3d4-5f6a-7b8c-9d0e-1f2a3b4c5d6e",
-    "name": "Boost & Ads API",
-    "description": "Dedicated collection for managing Boost Plans (product promotion) and Ad Packages (advertising campaigns). Full admin CRUD with activate/deactivate.\n\nBase URL: {{baseUrl}}\nAuth: All routes require {{adminToken}} in Authorization header",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "24481340"
-  },
-  "item": [
-    {
-      "name": "🚀 Boost Plans",
-      "description": "Admin endpoints for managing product boost/promotion plans. Boost plans control how long and for what price a product gets visibility boosts.\n\nBase URL: {{baseUrl}}/admin/boost-plans\n\nAuthentication: Bearer {{adminToken}} in Authorization header",
-      "item": [
-        {
-          "name": "List All Boost Plans",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/boost-plans",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "boost-plans"]
-            },
-            "description": "Returns all boost plans sorted by price ascending. Each plan includes: id, name, price, durationHours, description, isActive, createdAt, updatedAt."
-          },
-          "response": [
-            {
-              "name": "Boost Plans List Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Boost plans fetched successfully.\",\n    \"data\": [\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n            \"name\": \"Basic Boost\",\n            \"price\": 2,\n            \"durationHours\": 24,\n            \"description\": \"Visibility for 24h\",\n            \"isActive\": true,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n        },\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c0e\",\n            \"name\": \"Standard Boost\",\n            \"price\": 5,\n            \"durationHours\": 72,\n            \"description\": \"Visibility for 3 days\",\n            \"isActive\": true,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c0e\"\n        }\n    ]\n}"
-            }
-          ]
-        },
-        {
-          "name": "Get Boost Plan By ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/boost-plans/{{boostPlanId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "boost-plans", "{{boostPlanId}}"]
-            },
-            "description": "Returns a single boost plan by its MongoDB ObjectId."
-          },
-          "response": [
-            {
-              "name": "Boost Plan Detail Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Boost plan fetched successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"name\": \"Basic Boost\",\n        \"price\": 2,\n        \"durationHours\": 24,\n        \"description\": \"Visibility for 24h\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n    }\n}"
-            }
-          ]
-        },
-        {
-          "name": "Create Boost Plan",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"Premium Boost\",\n    \"price\": 9,\n    \"durationHours\": 168,\n    \"description\": \"Visibility for 7 days\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/boost-plans",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "boost-plans"]
-            },
-            "description": "Create a new boost plan.\n\nRequired fields:\n- name: string (1-100 chars)\n- price: number (min 0)\n- durationHours: integer (min 1)\n\nOptional:\n- description: string (max 500 chars)"
-          },
-          "response": [
-            {
-              "name": "Boost Plan Created Response",
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 201,\n    \"message\": \"Boost plan created successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0f\",\n        \"name\": \"Premium Boost\",\n        \"price\": 9,\n        \"durationHours\": 168,\n        \"description\": \"Visibility for 7 days\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-06-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T10:30:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0f\"\n    }\n}"
-            }
-          ]
-        },
-        {
-          "name": "Update Boost Plan",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"Premium+ Boost\",\n    \"price\": 12,\n    \"durationHours\": 336,\n    \"description\": \"Visibility for 14 days\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/boost-plans/{{boostPlanId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "boost-plans", "{{boostPlanId}}"]
-            },
-            "description": "Update an existing boost plan. All fields are optional — only provided fields will be updated.\n\nAlso supports: isActive (boolean) to directly set active/inactive."
-          },
-          "response": [
-            {
-              "name": "Boost Plan Updated Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Boost plan updated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"name\": \"Premium+ Boost\",\n        \"price\": 12,\n        \"durationHours\": 336,\n        \"description\": \"Visibility for 14 days\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T11:00:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n    }\n}"
-            }
-          ]
-        },
-        {
-          "name": "Delete Boost Plan",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/boost-plans/{{boostPlanId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "boost-plans", "{{boostPlanId}}"]
-            },
-            "description": "Permanently delete a boost plan by its MongoDB ObjectId."
-          },
-          "response": [
-            {
-              "name": "Boost Plan Deleted Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Boost plan deleted successfully.\",\n    \"data\": null\n}"
-            }
-          ]
-        },
-        {
-          "name": "Toggle Boost Plan Status",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/boost-plans/{{boostPlanId}}/toggle-status",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "boost-plans", "{{boostPlanId}}", "toggle-status"]
-            },
-            "description": "Toggle a boost plan between active and inactive. If currently active it will be deactivated, and vice versa. No request body needed."
-          },
-          "response": [
-            {
-              "name": "Boost Plan Activated Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Boost plan activated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"name\": \"Premium Boost\",\n        \"isActive\": true,\n        ...\n    }\n}"
-            },
-            {
-              "name": "Boost Plan Deactivated Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Boost plan deactivated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"name\": \"Premium Boost\",\n        \"isActive\": false,\n        ...\n    }\n}"
-            }
-          ]
-        }
-      ]
+    "info": {
+        "_postman_id": "e7b2c3d4-5f6a-7b8c-9d0e-1f2a3b4c5d6e",
+        "name": "Boost & Ads API",
+        "description": "Dedicated collection for managing Boost Plans (product promotion) and Ad Packages (advertising campaigns). Full admin CRUD with activate/deactivate.\n\nBase URL: {{baseUrl}}\nAuth: All routes require {{adminToken}} in Authorization header",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "24481340"
     },
-    {
-      "name": "📢 Ad Packages",
-      "description": "Admin endpoints for managing advertising packages. Ad packages define the duration, price, and type of ad campaigns users can purchase.\n\nBase URL: {{baseUrl}}/admin/ads-packages\n\nAuthentication: Bearer {{adminToken}} in Authorization header",
-      "item": [
+    "item": [
         {
-          "name": "List All Ad Packages",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/ads-packages",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "ads-packages"]
-            },
-            "description": "Returns all ad packages sorted by price ascending. Each package includes: id, name, durationDays, price, adType, isActive, createdAt, updatedAt."
-          },
-          "response": [
-            {
-              "name": "Ad Packages List Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
+            "name": "🚀 Boost Plans",
+            "description": "Admin endpoints for managing product boost/promotion plans. Boost plans control how long and for what price a product gets visibility boosts.\n\nBase URL: {{baseUrl}}/admin/boost-plans\n\nAuthentication: Bearer {{adminToken}} in Authorization header",
+            "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                    "name": "List All Boost Plans",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/boost-plans",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "boost-plans"]
+                        },
+                        "description": "Returns all boost plans sorted by price ascending. Each plan includes: id, name, price, durationHours, description, isActive, createdAt, updatedAt."
+                    },
+                    "response": [
+                        {
+                            "name": "Boost Plans List Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Boost plans fetched successfully.\",\n    \"data\": [\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n            \"name\": \"Basic Boost\",\n            \"price\": 2,\n            \"durationHours\": 24,\n            \"description\": \"Visibility for 24h\",\n            \"isActive\": true,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n        },\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c0e\",\n            \"name\": \"Standard Boost\",\n            \"price\": 5,\n            \"durationHours\": 72,\n            \"description\": \"Visibility for 3 days\",\n            \"isActive\": true,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c0e\"\n        }\n    ]\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Boost Plan By ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/boost-plans/{{boostPlanId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "boost-plans", "{{boostPlanId}}"]
+                        },
+                        "description": "Returns a single boost plan by its MongoDB ObjectId."
+                    },
+                    "response": [
+                        {
+                            "name": "Boost Plan Detail Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Boost plan fetched successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"name\": \"Basic Boost\",\n        \"price\": 2,\n        \"durationHours\": 24,\n        \"description\": \"Visibility for 24h\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Create Boost Plan",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Premium Boost\",\n    \"price\": 9,\n    \"durationHours\": 168,\n    \"description\": \"Visibility for 7 days\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/boost-plans",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "boost-plans"]
+                        },
+                        "description": "Create a new boost plan.\n\nRequired fields:\n- name: string (1-100 chars)\n- price: number (min 0)\n- durationHours: integer (min 1)\n\nOptional:\n- description: string (max 500 chars)"
+                    },
+                    "response": [
+                        {
+                            "name": "Boost Plan Created Response",
+                            "status": "Created",
+                            "code": 201,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 201,\n    \"message\": \"Boost plan created successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0f\",\n        \"name\": \"Premium Boost\",\n        \"price\": 9,\n        \"durationHours\": 168,\n        \"description\": \"Visibility for 7 days\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-06-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T10:30:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0f\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Update Boost Plan",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Premium+ Boost\",\n    \"price\": 12,\n    \"durationHours\": 336,\n    \"description\": \"Visibility for 14 days\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/boost-plans/{{boostPlanId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "boost-plans", "{{boostPlanId}}"]
+                        },
+                        "description": "Update an existing boost plan. All fields are optional — only provided fields will be updated.\n\nAlso supports: isActive (boolean) to directly set active/inactive."
+                    },
+                    "response": [
+                        {
+                            "name": "Boost Plan Updated Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Boost plan updated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"name\": \"Premium+ Boost\",\n        \"price\": 12,\n        \"durationHours\": 336,\n        \"description\": \"Visibility for 14 days\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T11:00:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c0d\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete Boost Plan",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/boost-plans/{{boostPlanId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "boost-plans", "{{boostPlanId}}"]
+                        },
+                        "description": "Permanently delete a boost plan by its MongoDB ObjectId."
+                    },
+                    "response": [
+                        {
+                            "name": "Boost Plan Deleted Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Boost plan deleted successfully.\",\n    \"data\": null\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Toggle Boost Plan Status",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/boost-plans/{{boostPlanId}}/toggle-status",
+                            "host": ["{{baseUrl}}"],
+                            "path": [
+                                "api",
+                                "v1",
+                                "admin",
+                                "boost-plans",
+                                "{{boostPlanId}}",
+                                "toggle-status"
+                            ]
+                        },
+                        "description": "Toggle a boost plan between active and inactive. If currently active it will be deactivated, and vice versa. No request body needed."
+                    },
+                    "response": [
+                        {
+                            "name": "Boost Plan Activated Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Boost plan activated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"name\": \"Premium Boost\",\n        \"isActive\": true,\n        ...\n    }\n}"
+                        },
+                        {
+                            "name": "Boost Plan Deactivated Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Boost plan deactivated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c0d\",\n        \"name\": \"Premium Boost\",\n        \"isActive\": false,\n        ...\n    }\n}"
+                        }
+                    ]
                 }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Ad packages fetched successfully.\",\n    \"data\": [\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c10\",\n            \"name\": \"Standard\",\n            \"durationDays\": 3,\n            \"price\": 5,\n            \"adType\": \"standard\",\n            \"isActive\": true,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c10\"\n        },\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c11\",\n            \"name\": \"Popular\",\n            \"durationDays\": 7,\n            \"price\": 10,\n            \"adType\": \"popular\",\n            \"isActive\": true,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c11\"\n        }\n    ]\n}"
-            }
-          ]
+            ]
         },
         {
-          "name": "Get Ad Package By ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/ads-packages/{{adPackageId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "ads-packages", "{{adPackageId}}"]
-            },
-            "description": "Returns a single ad package by its MongoDB ObjectId."
-          },
-          "response": [
-            {
-              "name": "Ad Package Detail Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
+            "name": "📢 Ad Packages",
+            "description": "Admin endpoints for managing advertising packages. Ad packages define the duration, price, and type of ad campaigns users can purchase.\n\nBase URL: {{baseUrl}}/admin/ads-packages\n\nAuthentication: Bearer {{adminToken}} in Authorization header",
+            "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Ad package fetched successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c10\",\n        \"name\": \"Standard\",\n        \"durationDays\": 3,\n        \"price\": 5,\n        \"adType\": \"standard\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c10\"\n    }\n}"
-            }
-          ]
-        },
-        {
-          "name": "Create Ad Package",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"Premium\",\n    \"durationDays\": 15,\n    \"price\": 18,\n    \"adType\": \"premium\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/ads-packages",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "ads-packages"]
-            },
-            "description": "Create a new ad package.\n\nRequired fields:\n- name: string (1-100 chars)\n- durationDays: integer (min 1, unique - no two packages with same duration)\n- price: number (min 0)\n- adType: string (e.g. \"standard\", \"popular\", \"premium\", \"ultimate\")"
-          },
-          "response": [
-            {
-              "name": "Ad Package Created Response",
-              "status": "Created",
-              "code": 201,
-              "header": [
+                    "name": "List All Ad Packages",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/ads-packages",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "ads-packages"]
+                        },
+                        "description": "Returns all ad packages sorted by price ascending. Each package includes: id, name, durationDays, price, adType, isActive, createdAt, updatedAt."
+                    },
+                    "response": [
+                        {
+                            "name": "Ad Packages List Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Ad packages fetched successfully.\",\n    \"data\": [\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c10\",\n            \"name\": \"Standard\",\n            \"durationDays\": 3,\n            \"price\": 5,\n            \"adType\": \"standard\",\n            \"isActive\": true,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c10\"\n        },\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c11\",\n            \"name\": \"Popular\",\n            \"durationDays\": 7,\n            \"price\": 10,\n            \"adType\": \"popular\",\n            \"isActive\": true,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c11\"\n        }\n    ]\n}"
+                        }
+                    ]
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 201,\n    \"message\": \"Ad package created successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c12\",\n        \"name\": \"Premium\",\n        \"durationDays\": 15,\n        \"price\": 18,\n        \"adType\": \"premium\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-06-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T10:30:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c12\"\n    }\n}"
-            }
-          ]
-        },
-        {
-          "name": "Update Ad Package",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"Premium Plus\",\n    \"durationDays\": 20,\n    \"price\": 25,\n    \"adType\": \"premium_plus\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/ads-packages/{{adPackageId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "ads-packages", "{{adPackageId}}"]
-            },
-            "description": "Update an existing ad package. All fields are optional — only provided fields will be updated.\n\nAlso supports: isActive (boolean) to directly set active/inactive."
-          },
-          "response": [
-            {
-              "name": "Ad Package Updated Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
+                    "name": "Get Ad Package By ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/ads-packages/{{adPackageId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "ads-packages", "{{adPackageId}}"]
+                        },
+                        "description": "Returns a single ad package by its MongoDB ObjectId."
+                    },
+                    "response": [
+                        {
+                            "name": "Ad Package Detail Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Ad package fetched successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c10\",\n        \"name\": \"Standard\",\n        \"durationDays\": 3,\n        \"price\": 5,\n        \"adType\": \"standard\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c10\"\n    }\n}"
+                        }
+                    ]
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Ad package updated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c10\",\n        \"name\": \"Premium Plus\",\n        \"durationDays\": 20,\n        \"price\": 25,\n        \"adType\": \"premium_plus\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T11:00:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c10\"\n    }\n}"
-            }
-          ]
-        },
-        {
-          "name": "Delete Ad Package",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/ads-packages/{{adPackageId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "ads-packages", "{{adPackageId}}"]
-            },
-            "description": "Permanently delete an ad package by its MongoDB ObjectId."
-          },
-          "response": [
-            {
-              "name": "Ad Package Deleted Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
+                    "name": "Create Ad Package",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Premium\",\n    \"durationDays\": 15,\n    \"price\": 18,\n    \"adType\": \"premium\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/ads-packages",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "ads-packages"]
+                        },
+                        "description": "Create a new ad package.\n\nRequired fields:\n- name: string (1-100 chars)\n- durationDays: integer (min 1, unique - no two packages with same duration)\n- price: number (min 0)\n- adType: string (e.g. \"standard\", \"popular\", \"premium\", \"ultimate\")"
+                    },
+                    "response": [
+                        {
+                            "name": "Ad Package Created Response",
+                            "status": "Created",
+                            "code": 201,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 201,\n    \"message\": \"Ad package created successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c12\",\n        \"name\": \"Premium\",\n        \"durationDays\": 15,\n        \"price\": 18,\n        \"adType\": \"premium\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-06-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T10:30:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c12\"\n    }\n}"
+                        }
+                    ]
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Ad package deleted successfully.\",\n    \"data\": null\n}"
-            }
-          ]
-        },
-        {
-          "name": "Toggle Ad Package Status",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/ads-packages/{{adPackageId}}/toggle-status",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "ads-packages", "{{adPackageId}}", "toggle-status"]
-            },
-            "description": "Toggle an ad package between active and inactive. If currently active it will be deactivated, and vice versa. No request body needed."
-          },
-          "response": [
-            {
-              "name": "Ad Package Activated Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
+                    "name": "Update Ad Package",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Premium Plus\",\n    \"durationDays\": 20,\n    \"price\": 25,\n    \"adType\": \"premium_plus\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/ads-packages/{{adPackageId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "ads-packages", "{{adPackageId}}"]
+                        },
+                        "description": "Update an existing ad package. All fields are optional — only provided fields will be updated.\n\nAlso supports: isActive (boolean) to directly set active/inactive."
+                    },
+                    "response": [
+                        {
+                            "name": "Ad Package Updated Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Ad package updated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c10\",\n        \"name\": \"Premium Plus\",\n        \"durationDays\": 20,\n        \"price\": 25,\n        \"adType\": \"premium_plus\",\n        \"isActive\": true,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T11:00:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c10\"\n    }\n}"
+                        }
+                    ]
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Ad package activated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c10\",\n        \"name\": \"Premium\",\n        \"isActive\": true,\n        ...\n    }\n}"
-            },
-            {
-              "name": "Ad Package Deactivated Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
+                    "name": "Delete Ad Package",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/ads-packages/{{adPackageId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "ads-packages", "{{adPackageId}}"]
+                        },
+                        "description": "Permanently delete an ad package by its MongoDB ObjectId."
+                    },
+                    "response": [
+                        {
+                            "name": "Ad Package Deleted Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Ad package deleted successfully.\",\n    \"data\": null\n}"
+                        }
+                    ]
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                    "name": "Toggle Ad Package Status",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/ads-packages/{{adPackageId}}/toggle-status",
+                            "host": ["{{baseUrl}}"],
+                            "path": [
+                                "api",
+                                "v1",
+                                "admin",
+                                "ads-packages",
+                                "{{adPackageId}}",
+                                "toggle-status"
+                            ]
+                        },
+                        "description": "Toggle an ad package between active and inactive. If currently active it will be deactivated, and vice versa. No request body needed."
+                    },
+                    "response": [
+                        {
+                            "name": "Ad Package Activated Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Ad package activated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c10\",\n        \"name\": \"Premium\",\n        \"isActive\": true,\n        ...\n    }\n}"
+                        },
+                        {
+                            "name": "Ad Package Deactivated Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Ad package deactivated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c10\",\n        \"name\": \"Premium\",\n        \"isActive\": false,\n        ...\n    }\n}"
+                        }
+                    ]
                 }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Ad package deactivated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c10\",\n        \"name\": \"Premium\",\n        \"isActive\": false,\n        ...\n    }\n}"
-            }
-          ]
+            ]
         }
-      ]
-    }
-  ],
-  "auth": {
-    "type": "bearer",
-    "bearer": [
-      {
-        "key": "token",
-        "value": "{{adminToken}}",
-        "type": "string"
-      }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{adminToken}}",
+                "type": "string"
+            }
+        ]
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:3000/api/v1"
+        },
+        {
+            "key": "adminToken",
+            "value": ""
+        },
+        {
+            "key": "boostPlanId",
+            "value": ""
+        },
+        {
+            "key": "adPackageId",
+            "value": ""
+        }
     ]
-  },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://localhost:3000/api/v1"
-    },
-    {
-      "key": "adminToken",
-      "value": ""
-    },
-    {
-      "key": "boostPlanId",
-      "value": ""
-    },
-    {
-      "key": "adPackageId",
-      "value": ""
-    }
-  ]
 }

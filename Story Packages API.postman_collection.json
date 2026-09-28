@@ -1,204 +1,204 @@
 {
-  "info": {
-    "_postman_id": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
-    "name": "Story Packages API",
-    "description": "Dedicated collection for managing Story Packages. Story packages define the duration (24h/48h/72h) and pricing for story promotions.\n\nBase URL: {{baseUrl}}\nAuth: All routes require {{adminToken}} in Authorization header",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "24481340"
-  },
-  "item": [
-    {
-      "name": "📖 Story Packages",
-      "description": "Admin endpoints for managing story promotion packages. Each package defines a duration and price.\n\nBase URL: {{baseUrl}}/admin/story-packages\n\nAuthentication: Bearer {{adminToken}} in Authorization header",
-      "item": [
+    "info": {
+        "_postman_id": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
+        "name": "Story Packages API",
+        "description": "Dedicated collection for managing Story Packages. Story packages define the duration (24h/48h/72h) and pricing for story promotions.\n\nBase URL: {{baseUrl}}\nAuth: All routes require {{adminToken}} in Authorization header",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "24481340"
+    },
+    "item": [
         {
-          "name": "List All Story Packages",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/story-packages",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "story-packages"]
-            },
-            "description": "Returns all story packages sorted by price ascending. Each package includes: id, description, durationHours, price, createdAt, updatedAt."
-          },
-          "response": [
-            {
-              "name": "Story Packages List Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
+            "name": "📖 Story Packages",
+            "description": "Admin endpoints for managing story promotion packages. Each package defines a duration and price.\n\nBase URL: {{baseUrl}}/admin/story-packages\n\nAuthentication: Bearer {{adminToken}} in Authorization header",
+            "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Story packages fetched successfully.\",\n    \"data\": [\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c20\",\n            \"description\": \"Boost story visibility for 24 hours\",\n            \"durationHours\": 24,\n            \"price\": 2,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c20\"\n        },\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c21\",\n            \"description\": \"Boost story visibility for 48 hours\",\n            \"durationHours\": 48,\n            \"price\": 4,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c21\"\n        }\n    ]\n}"
-            }
-          ]
-        },
-        {
-          "name": "Get Story Package By ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/story-packages/{{storyPackageId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "story-packages", "{{storyPackageId}}"]
-            },
-            "description": "Returns a single story package by its MongoDB ObjectId."
-          },
-          "response": [
-            {
-              "name": "Story Package Detail Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
+                    "name": "List All Story Packages",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/story-packages",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "story-packages"]
+                        },
+                        "description": "Returns all story packages sorted by price ascending. Each package includes: id, description, durationHours, price, createdAt, updatedAt."
+                    },
+                    "response": [
+                        {
+                            "name": "Story Packages List Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Story packages fetched successfully.\",\n    \"data\": [\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c20\",\n            \"description\": \"Boost story visibility for 24 hours\",\n            \"durationHours\": 24,\n            \"price\": 2,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c20\"\n        },\n        {\n            \"_id\": \"664f1a2b3c4d5e6f7a8b9c21\",\n            \"description\": \"Boost story visibility for 48 hours\",\n            \"durationHours\": 48,\n            \"price\": 4,\n            \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n            \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n            \"id\": \"664f1a2b3c4d5e6f7a8b9c21\"\n        }\n    ]\n}"
+                        }
+                    ]
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Story package fetched successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c20\",\n        \"description\": \"Boost story visibility for 24 hours\",\n        \"durationHours\": 24,\n        \"price\": 2,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c20\"\n    }\n}"
-            }
-          ]
-        },
-        {
-          "name": "Create Story Package",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"description\": \"Boost story visibility for 24 hours\",\n    \"durationHours\": 24,\n    \"price\": 2\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/story-packages",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "story-packages"]
-            },
-            "description": "Create a new story package.\n\nRequired fields:\n- description: string (1-500 chars)\n- durationHours: integer (must be 24, 48, or 72 — unique, no two packages with same duration)\n- price: number (min 0)"
-          },
-          "response": [
-            {
-              "name": "Story Package Created Response",
-              "status": "Created",
-              "code": 201,
-              "header": [
+                    "name": "Get Story Package By ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/story-packages/{{storyPackageId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "story-packages", "{{storyPackageId}}"]
+                        },
+                        "description": "Returns a single story package by its MongoDB ObjectId."
+                    },
+                    "response": [
+                        {
+                            "name": "Story Package Detail Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Story package fetched successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c20\",\n        \"description\": \"Boost story visibility for 24 hours\",\n        \"durationHours\": 24,\n        \"price\": 2,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-01T14:22:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c20\"\n    }\n}"
+                        }
+                    ]
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 201,\n    \"message\": \"Story package created successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c22\",\n        \"description\": \"Boost story visibility for 24 hours\",\n        \"durationHours\": 24,\n        \"price\": 2,\n        \"createdAt\": \"2025-06-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T10:30:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c22\"\n    }\n}"
-            }
-          ]
-        },
-        {
-          "name": "Update Story Package",
-          "request": {
-            "method": "PATCH",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"description\": \"Boost story visibility for 72 hours\",\n    \"durationHours\": 72,\n    \"price\": 6\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/story-packages/{{storyPackageId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "story-packages", "{{storyPackageId}}"]
-            },
-            "description": "Update an existing story package. All fields are optional — only provided fields will be updated."
-          },
-          "response": [
-            {
-              "name": "Story Package Updated Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
+                    "name": "Create Story Package",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"description\": \"Boost story visibility for 24 hours\",\n    \"durationHours\": 24,\n    \"price\": 2\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/story-packages",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "story-packages"]
+                        },
+                        "description": "Create a new story package.\n\nRequired fields:\n- description: string (1-500 chars)\n- durationHours: integer (must be 24, 48, or 72 — unique, no two packages with same duration)\n- price: number (min 0)"
+                    },
+                    "response": [
+                        {
+                            "name": "Story Package Created Response",
+                            "status": "Created",
+                            "code": 201,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 201,\n    \"message\": \"Story package created successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c22\",\n        \"description\": \"Boost story visibility for 24 hours\",\n        \"durationHours\": 24,\n        \"price\": 2,\n        \"createdAt\": \"2025-06-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T10:30:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c22\"\n    }\n}"
+                        }
+                    ]
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Story package updated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c20\",\n        \"description\": \"Boost story visibility for 72 hours\",\n        \"durationHours\": 72,\n        \"price\": 6,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T11:00:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c20\"\n    }\n}"
-            }
-          ]
-        },
-        {
-          "name": "Delete Story Package",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/admin/story-packages/{{storyPackageId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "admin", "story-packages", "{{storyPackageId}}"]
-            },
-            "description": "Permanently delete a story package by its MongoDB ObjectId."
-          },
-          "response": [
-            {
-              "name": "Story Package Deleted Response",
-              "status": "OK",
-              "code": 200,
-              "header": [
+                    "name": "Update Story Package",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"description\": \"Boost story visibility for 72 hours\",\n    \"durationHours\": 72,\n    \"price\": 6\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/story-packages/{{storyPackageId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "story-packages", "{{storyPackageId}}"]
+                        },
+                        "description": "Update an existing story package. All fields are optional — only provided fields will be updated."
+                    },
+                    "response": [
+                        {
+                            "name": "Story Package Updated Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Story package updated successfully.\",\n    \"data\": {\n        \"_id\": \"664f1a2b3c4d5e6f7a8b9c20\",\n        \"description\": \"Boost story visibility for 72 hours\",\n        \"durationHours\": 72,\n        \"price\": 6,\n        \"createdAt\": \"2025-01-15T10:30:00.000Z\",\n        \"updatedAt\": \"2025-06-15T11:00:00.000Z\",\n        \"id\": \"664f1a2b3c4d5e6f7a8b9c20\"\n    }\n}"
+                        }
+                    ]
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                    "name": "Delete Story Package",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/v1/admin/story-packages/{{storyPackageId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "v1", "admin", "story-packages", "{{storyPackageId}}"]
+                        },
+                        "description": "Permanently delete a story package by its MongoDB ObjectId."
+                    },
+                    "response": [
+                        {
+                            "name": "Story Package Deleted Response",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Story package deleted successfully.\",\n    \"data\": null\n}"
+                        }
+                    ]
                 }
-              ],
-              "body": "{\n    \"success\": true,\n    \"statusCode\": 200,\n    \"message\": \"Story package deleted successfully.\",\n    \"data\": null\n}"
-            }
-          ]
+            ]
         }
-      ]
-    }
-  ],
-  "auth": {
-    "type": "bearer",
-    "bearer": [
-      {
-        "key": "token",
-        "value": "{{adminToken}}",
-        "type": "string"
-      }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{adminToken}}",
+                "type": "string"
+            }
+        ]
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:3000/api/v1"
+        },
+        {
+            "key": "adminToken",
+            "value": ""
+        },
+        {
+            "key": "storyPackageId",
+            "value": ""
+        }
     ]
-  },
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://localhost:3000/api/v1"
-    },
-    {
-      "key": "adminToken",
-      "value": ""
-    },
-    {
-      "key": "storyPackageId",
-      "value": ""
-    }
-  ]
 }
